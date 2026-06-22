@@ -16,3 +16,11 @@ export class CreateMedicalDto {
 }
 
 export class UpdateMedicalDto extends CreateMedicalDto {}
+
+export class SearchMedicalDto {
+  @IsOptional() @IsString() diagnosis?: string;
+  @IsOptional() @IsString() prescription?: string;
+  @IsOptional() @IsString() clinicId?: string;
+  @IsOptional() @IsDateString() startDate?: string;
+  @IsOptional() @IsDateString() endDate?: string;
+}

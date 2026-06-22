@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { AuditLog } from '../../middleware/audit-log';
 import { AuthGuard } from '../auth/auth.guard';
-import { CreateMedicalDto, UpdateMedicalDto } from './medical.dto';
+import { CreateMedicalDto, SearchMedicalDto, UpdateMedicalDto } from './medical.dto';
 import { MedicalService } from './medical.service';
 
 @Controller('medical')
@@ -12,6 +12,11 @@ export class MedicalController {
   @Get()
   async list(@Req() req: any, @Query('petId') petId?: string, @Query('type') type?: string) {
     return { code: 0, message: 'ok', data: await this.service.list(req.user, petId, type) };
+  }
+
+  @Get('search')
+  async search(@Req() req: any, @Query() query: SearchMedicalDto) {
+    return { code: 0, message: 'ok', data: await this.service.search(req.user, query) };
   }
 
   @Post()

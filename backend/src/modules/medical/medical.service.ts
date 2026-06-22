@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UserRole } from '../../constants/enums';
-import { CreateMedicalDto, UpdateMedicalDto } from './medical.dto';
+import { CreateMedicalDto, SearchMedicalDto, UpdateMedicalDto } from './medical.dto';
 import { MedicalRepository } from './medical.repository';
 import { validateMedicalCost } from './medical.validator';
 
@@ -10,6 +10,10 @@ export class MedicalService {
 
   list(user: { sub: string; role: UserRole }, petId?: string, type?: string) {
     return this.repo.findMany(user, petId, type);
+  }
+
+  search(user: { sub: string; role: UserRole }, dto: SearchMedicalDto) {
+    return this.repo.search(user, dto);
   }
 
   create(dto: CreateMedicalDto) {
